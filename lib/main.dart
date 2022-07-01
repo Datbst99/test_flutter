@@ -30,28 +30,62 @@ class HomePage extends StatelessWidget {
         'Giới thiệu chương trình đầu tiên của tôi 2',
       )),
       drawer: Drawer(
+          elevation: 20,
           backgroundColor: Colors.pink.shade100,
           child: ListView(
-            children: [
-              DrawerHeader(
-                  child: RichText(
-                text: const TextSpan(
-                    style: TextStyle(color: Colors.white),
-                    children: [
-                      TextSpan(
-                        text: 'Welcom to MyApp 2 \n',
-                        style: TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      TextSpan(
-                          text: 'App dành được tạo ra từ người mới bắt đầu',
-                          style: TextStyle())
-                    ]),
-              )),
+            children: const [
+              SizedBox(
+                height: 64,
+                child: DrawerHeader(
+                    child: Text(
+                  'Welcome to MyApp',
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white),
+                )),
+              ),
+              ListTile(
+                textColor: Colors.white,
+                iconColor: Colors.white,
+                title: Text('Dashboard'),
+                leading: Icon(Icons.dashboard),
+              ),
+              ListTile(
+                textColor: Colors.white,
+                iconColor: Colors.white,
+                title: Text('Course'),
+                leading: Icon(Icons.book_outlined),
+              ),
+              ListTile(
+                textColor: Colors.white,
+                iconColor: Colors.white,
+                title: Text('Invite'),
+                leading: Icon(Icons.add_box_outlined),
+              ),
+              ListTile(
+                textColor: Colors.white,
+                iconColor: Colors.white,
+                title: Text('Dashboard'),
+              ),
+              ListTile(
+                textColor: Colors.white,
+                iconColor: Colors.white,
+                title: Text('Dashboard'),
+              ),
+              ListTile(
+                textColor: Colors.white,
+                iconColor: Colors.white,
+                title: Text('Dashboard'),
+              ),
             ],
           )),
+      floatingActionButton: FloatingActionButton(
+        // ignore: sort_child_properties_last
+        child: const Icon(Icons.add),
+        backgroundColor: Colors.pink.shade100,
+        onPressed: () {},
+      ),
     );
   }
 }
