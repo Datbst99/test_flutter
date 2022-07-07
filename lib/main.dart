@@ -1,5 +1,5 @@
+import 'package:app_test_setup/views/components/login.dart';
 import 'package:app_test_setup/views/layouts/appbar.dart';
-import 'package:flutter/cupertino.dart';
 import "package:flutter/material.dart";
 
 void main() {
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: ActiveNavigationBar(),
+      home: LoginPage(),
     );
   }
 }
@@ -130,7 +130,8 @@ class ActiveNavigationBar extends StatefulWidget {
 
 class _ActiveNavigationBarState extends State<ActiveNavigationBar> {
   var index = 1;
-
+  int _volume = 0;
+  String dropValue = 'javasript';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -189,7 +190,83 @@ class _ActiveNavigationBarState extends State<ActiveNavigationBar> {
               ),
             ],
           )),
-      body: loginForm(),
+      body: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Column(
+            children: [
+              Container(
+                child: TextButton(
+                  onPressed: () {
+                    print('Click text btn');
+                  },
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(Colors.red.shade300)),
+                  child: Text('Nút Text Button bg'),
+                ),
+              ),
+              Container(
+                child: TextButton(
+                  onPressed: () {
+                    print('Click text btn');
+                  },
+                  child: Text('Nút Text Button ol'),
+                ),
+              ),
+              Container(
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(Icons.navigation),
+                ),
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              Container(
+                child: FloatingActionButton(
+                  onPressed: () {},
+                  child: Icon(Icons.navigation),
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.all(20),
+                child: DropdownButton<String>(
+                  value: dropValue,
+                  onChanged: (String? newVal) {
+                    setState(() {
+                      dropValue = newVal!;
+                    });
+                  },
+                  items: <String>['javasript', 'php', 'C#', 'java,']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ),
+              Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      InkWell(
+                        child: Icon(Icons.ring_volume),
+                        onTap: () {
+                          setState(() {
+                            _volume += 2;
+                          });
+                        },
+                      ),
+                      Text(_volume.toString())
+                    ],
+                  ))
+            ],
+          )
+        ],
+      ),
 
       // floatingActionButton: FloatingActionButton(
       //   // ignore: sort_child_properties_last
@@ -283,7 +360,12 @@ Container contentContainer() {
   );
 }
 
+// Sử dụng TextField
+// input trong Fullter
+
 Column loginForm() {
+  TextEditingController nameController = TextEditingController();
+  TextEditingController passController = TextEditingController();
   return Column(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
@@ -293,10 +375,11 @@ Column loginForm() {
             style: TextStyle(
                 fontSize: 25, color: Colors.pink, fontWeight: FontWeight.w500)),
       ),
-      const Padding(
+      Padding(
         padding: EdgeInsets.all(10),
         child: TextField(
-          decoration: InputDecoration(
+          controller: nameController,
+          decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(90)),
               ),
@@ -304,11 +387,12 @@ Column loginForm() {
               hintText: 'Nhập tên đăng nhập'),
         ),
       ),
-      const Padding(
+      Padding(
         padding: EdgeInsets.all(10),
         child: TextField(
+          controller: passController,
           obscureText: true,
-          decoration: InputDecoration(
+          decoration: const InputDecoration(
             border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(90)),
             ),
@@ -329,8 +413,75 @@ Column loginForm() {
                   borderRadius: BorderRadius.all(Radius.circular(90)),
                 ))),
             child: const Text('Đăng nhập'),
-            onPressed: () {},
+            onPressed: () {
+              // Giá trị được sử dụng làm gì
+              print(nameController.text + "--" + passController.text);
+            },
           )),
+    ],
+  );
+}
+
+Row listBtn() {
+  String dropValue = 'javasript';
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+      Column(
+        children: [
+          Container(
+            child: TextButton(
+              onPressed: () {
+                print('Click text btn');
+              },
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(Colors.red.shade300)),
+              child: Text('Nút Text Button bg'),
+            ),
+          ),
+          Container(
+            child: TextButton(
+              onPressed: () {
+                print('Click text btn');
+              },
+              child: Text('Nút Text Button ol'),
+            ),
+          ),
+          Container(
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.navigation),
+            ),
+          ),
+        ],
+      ),
+      Column(
+        children: [
+          Container(
+            child: FloatingActionButton(
+              onPressed: () {},
+              child: Icon(Icons.navigation),
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(20),
+            child: DropdownButton<String>(
+              value: dropValue,
+              onChanged: (String? newVal) {
+                print(newVal);
+              },
+              items: <String>['javasript', 'php', 'C#', 'java,']
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem(
+                  value: value,
+                  child: Text(value),
+                );
+              }).toList(),
+            ),
+          )
+        ],
+      )
     ],
   );
 }
